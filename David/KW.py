@@ -8,11 +8,15 @@ Created on Thu Oct 15 12:40:53 2020
 import pandas as pd
 import matplotlib.pyplot as plt
 
+start_date = "2020-01-01 00:00:00"
+end_date = "2020-01-02 23:00:00"
+dataToPlot = 'Temperature'
+
 df = pd.read_excel('Keffi_Weather_Combined.xlsx')
 p = pd.date_range(start='1/1/2014',periods=len(df),freq='1H' )
 df.set_index(p,inplace=True)
 
-rng = df["2014-02-02 00:00:00":"2014-02-02 23:00:00"]
+rng = df[start_date:end_date]
 
 temperature = rng.Temperature
 dewPoint = rng.Dew_Point
@@ -88,12 +92,41 @@ press = pressure3.astype('float')
 preC = precip3.astype('float')
 c = condition3
 
-print(wS)
-
-plt.plot(wS,"-o")
-
-
-
-
-
-
+if(dataToPlot == 'Temperature'):
+    plt.plot(temp,"-o")
+    plt.xlabel("Time(Hours)")
+    plt.ylabel("Temperature(C)")
+elif(dataToPlot == 'Dew Point'):
+    plt.plot(dewP,"-o")
+    plt.xlabel("Time(Hours)")
+    plt.ylabel("Dew Point(C)")
+elif(dataToPlot == 'Humidity'):
+    plt.plot(hum,"-o")
+    plt.xlabel("Time(Hours)")
+    plt.ylabel("Humidity(%)")
+elif(dataToPlot == 'Wind'):
+    plt.plot(w,"-o")
+    plt.xlabel("Time(Hours)")
+    plt.ylabel("Wind")
+elif(dataToPlot == 'Wind Speed'):
+    plt.plot(wS,"-o")
+    plt.xlabel("Time(Hours)")
+    plt.ylabel("Wind Speed(kmh)")
+elif(dataToPlot == 'Wind Gust'):
+    plt.plot(wG,"-o")
+    plt.xlabel("Time(Hours)")
+    plt.ylabel("Wind Gust(kmh)")
+elif(dataToPlot == 'Pressure'):
+    plt.plot(press,"-o")
+    plt.xlabel("Time(Hours)")
+    plt.ylabel("Pressure(in)")
+elif(dataToPlot == 'Precip'):
+    plt.plot(preC,"-o")
+    plt.xlabel("Time(Hours)")
+    plt.ylabel("Precip(in)")
+elif(dataToPlot == 'Condition'):
+    plt.plot(c,"-o")
+    plt.xlabel("Time(Hours)")
+    plt.ylabel("Condition")
+else:
+    print("Enter a correct data to plot")
